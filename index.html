@@ -183,7 +183,9 @@ Please reach out for collaborations!
 </p>
 
 
-<div id="phytoplankton-counter-box" style=" font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; text-align: center; padding: 15px; background: #0A192F; border-radius: 6px; border-bottom: 3px solid #0BF4C5; max-width: 280px; margin: 10px auto;"> <p style="margin: 0 0 8px 0; font-size: 9px; color: #C3C8D9; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; line-height: 1.2;"> California Department of Public Health Phytoplankton Monitoring Program </p> <div id="sample-count" style=" font-size: 2.2rem; font-weight: 700; color: #0BF4C5; margin: 0; line-height: 1;">0</div> <p style="margin: 8px 0 0 0; font-size: 9px; color: #64FFDA; text-transform: uppercase; letter-spacing: 1px; font-weight: 600; opacity: 0.8;"> Samples to date: 2/27/26 </p> </div>
+<div style="font-family: 'Georgia', serif; font-size: 0.7rem; color: #999; letter-spacing: 0.5px; margin: 15px 0; text-transform: uppercase;">
+    CDPH Phytoplankton Monitoring &mdash; Samples: <span id="sample-count" style="font-weight: bold; color: #666;">0</span>
+</div>
 
 
 <div class="social-icons">
@@ -244,6 +246,21 @@ animateCounter('sample-count', 9, 500);
 </div>
 
 </div>
-
+<script>
+    function animateCounter(id, target, dur) {
+        const el = document.getElementById(id);
+        let start = null;
+        const step = (ts) => {
+            if (!start) start = ts;
+            const prog = Math.min((ts - start) / dur, 1);
+            el.innerHTML = Math.floor(prog * target);
+            if (prog < 1) window.requestAnimationFrame(step);
+        };
+        window.requestAnimationFrame(step);
+    }
+    document.addEventListener("DOMContentLoaded", () => {
+        animateCounter('sample-count', 9, 1000); 
+    });
+</script>
 </body>
 </html>
